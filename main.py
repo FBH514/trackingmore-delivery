@@ -2,7 +2,6 @@ import asyncio
 import json
 from datetime import datetime
 from typing import Optional, Any
-
 import requests
 
 
@@ -31,7 +30,7 @@ class Delivery:
     def delivery_status(self) -> Optional[list[Any]]:
         if not self.get_tracking_data()["code"] == 200:
             print(f"{self.get_tracking_data()['code']} -> {self.get_tracking_data()['message']}\n"
-                  f"https://developer.mozilla.org/en-US/docs/Web/HTTP/Status{self.get_tracking_data()['code']}")
+                  f"https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/{self.get_tracking_data()['code']}")
             return None
         delivery = []
         data = self.get_tracking_data()["data"][0]
