@@ -1,6 +1,8 @@
 import asyncio
 import json
 from datetime import datetime
+from typing import Optional, Any
+
 import requests
 
 
@@ -26,22 +28,16 @@ class Delivery:
         with open("results.json", "r") as f:
             return json.load(f)
 
-    def delivery_status(self) -> list:
-        delivery = []
+    def delivery_status(self) -> Optional[list[Any]]:
         if not self.get_tracking_data()["code"] == 200:
-            return [self.get_tracking_data()["code"], self.get_tracking_data()["message"]]
-        for key in self.get_tracking_data().keys():
-            if key == "data":
-                data = self.get_tracking_data()[key][0]
-                for item in data.keys():
-                    if len(delivery) == 3:
-                        break
-                    if item == "tracking_number":
-                        delivery.append(data[item])
-                    if item == "delivery_status":
-                        delivery.append(data[item])
-                    if item == "update_date":
-                        delivery.append(data[item])
+            print(f"{self.get_tracking_data()['code']} -> {self.get_tracking_data()['message']}\n"
+                  f"https://developer.mozilla.org/en-US/docs/Web/HTTP/Status{self.get_tracking_data()['code']}")
+            return None
+        delivery = []
+        data = self.get_tracking_data()["data"][0]
+        delivery.append(data["tracking_number"])
+        delivery.append(data["delivery_status"])
+        delivery.append(data["update_date"])
         time = delivery[2].split("T")
         delivery[2] = time[0]
         return delivery
@@ -50,12 +46,15 @@ class Delivery:
         while True:
             self.save_tracking_data()
             data = self.delivery_status()
-            print(
-                f"Time – {datetime.now().strftime('%I:%M:%S %p')}"
-                f"\nTracking Number: {data[0]}"
-                f"\nDelivery Status: {data[1].upper()}"
-                f"\nLast Update: {data[2]}"
-            )
+            if data is not None:
+                print(
+                    f"Time – {datetime.now().strftime('%I:%M:%S %p')}"
+                    f"\nTracking Number: {data[0]}"
+                    f"\nDelivery Status: {data[1].upper()}"
+                    f"\nLast Update: {data[2]}"
+                )
+            else:
+                pass
             print()
             await asyncio.sleep(60)
 
