@@ -1,7 +1,7 @@
 # Delivery Status Notifications
 ## Installation
 >### Programming Language
->If Python 3 isn't installed on your machine, you can find it [here].  
+>If Python 3 isn't installed on your machine, you can find it **[here](https://www.python.org/downloads/)**.  
 
 > ### Dependencies
 >#### Option A – Bash
