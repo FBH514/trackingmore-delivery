@@ -8,7 +8,7 @@ class Delivery:
 
     def __init__(self):
         self.base_url = "https://api.trackingmore.com"
-        self.api_key = "615dc08e-2f40-480a-b166-bd6363e8cfd1"
+        self.api_key = ""
         self.api_version = "v3"
         self.headers = {
             "Content-Type": "application/json",
