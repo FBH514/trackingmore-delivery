@@ -1,0 +1,29 @@
+body {
+  font-family: 'Space Mono', monospace;
+}
+
+.page-header{
+  background-color: #495867;
+  height: 5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+  color: #ce796b;
+  border-bottom: 2px solid #ce796b;
+
+  h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  hr {
+    background-color: #ce796b;
+    height: 2px;
+    border: none;
+    width: 50%;
+    margin: 0 1vw;
+  }
+}
